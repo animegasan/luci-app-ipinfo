@@ -1,0 +1,11 @@
+{
+	"luci-app-ipinfo": {
+		"description": "Grant access to luci-app-ipinfo",
+		"read": {
+			"uci": [ "ipinfo" ]
+		},
+		"write": {
+			"uci": [ "ipinfo" ]
+		}
+	}
+}
