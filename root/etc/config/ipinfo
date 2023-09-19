@@ -1,0 +1,15 @@
+
+config ipinfo 'config'
+	option country '1'
+	option city '1'
+	option isp '1'
+	option ip '114.122.69.176'
+	option query '1'
+	option asname '1'
+	option as '1'
+	option regionName '1'
+	option continent '1'
+	option lat '1'
+	option lon '1'
+	option offset '1'
+
