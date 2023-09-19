@@ -4,7 +4,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-ipinfo
-PKG_VERSION:=1.0.2-20230803
+PKG_VERSION:=1.0.3-20230919
 PKG_MAINTAINER:=<https://github.com/animegasan>
 
 LUCI_TITLE:=LuCI for IP Geolocation API
