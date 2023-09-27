@@ -8,7 +8,6 @@ PKG_VERSION:=1.0.3-20230919
 PKG_MAINTAINER:=<https://github.com/animegasan>
 
 LUCI_TITLE:=LuCI for IP Geolocation API
-LUCI_DEPENDS:=+luci-base
 LUCI_PKGARCH:=all
 LUCI_DESCRIPTION:=LuCI support for IP Geolocation API
 
