@@ -11,23 +11,8 @@ return view.extend({
     // Initialize the 'this' variable for access within promises
     var self = this;
 
-    // List of properties to fetch from the API
-    var propertiesToFetch = [
-      'query',
-      'isp',
-      'asname',
-      'as',
-      'city',
-      'regionName',
-      'country',
-      'continent',
-      'lat',
-      'lon',
-      'offset'
-    ];
-
     // Create a URL with the desired fields
-    var apiUrl = 'http://ip-api.com/json/?fields=' + propertiesToFetch.join(',');
+    var apiUrl = '/cgi-bin/luci/admin/services/ipinfo/ipstatus';
 
     // Create a new XHR object
     var xhr = new XMLHttpRequest();
