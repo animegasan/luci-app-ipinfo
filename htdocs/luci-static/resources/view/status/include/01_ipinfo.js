@@ -29,20 +29,30 @@ return view.extend({
     // Create a URL with the desired fields
     var apiUrl = 'http://ip-api.com/json/?fields=' + propertiesToFetch.join(',');
 
-    // Fetch IP data from ip-api.com using HTTP
-    return fetch(apiUrl)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+
+    // Configure the request
+    xhr.open('GET', apiUrl, true);
+
+    // Set up an event listener for when the request is complete
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        var data = JSON.parse(xhr.responseText);
         self.ipData = data; // Save IP data to the 'ipData' variable
-      })
-      .then(function () {
-        // Use UCI to fetch the 'ipinfo' configuration from OpenWrt or LEDE system
-        return uci.load('ipinfo').then(function () {
-          self.ipInfoConfig = uci.get('ipinfo', 'config');
-        });
-      });
+      } else {
+        // Handle error
+        console.error('Failed to fetch IP data:', xhr.status, xhr.statusText);
+      }
+    };
+
+    // Send the request
+    xhr.send();
+
+    // Use UCI to fetch the 'ipinfo' configuration from OpenWrt or LEDE system
+    return uci.load('ipinfo').then(function () {
+      self.ipInfoConfig = uci.get('ipinfo', 'config');
+    });
   },
   render: function (data) {
     if (!this.ipData || !this.ipInfoConfig) {
@@ -52,7 +62,7 @@ return view.extend({
 
     // Create a table with selected information from ip-api.com
     var table = E('table', { 'class': 'table' });
-    
+
     // List of properties to display with corresponding labels
     var propertiesToShow = {
       'Public IP': 'query',
