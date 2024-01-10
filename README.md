@@ -1,5 +1,5 @@
-# LuCI support for IP Geolocation API
+# LuCI support for ifconfig.co.
 
-## Shows public ip information in Overview LuCI with IP Geolocation API
+## Shows public ip information in Overview LuCI with ifconfig.co.
 
-<img alt="Preview" src="https://raw.githubusercontent.com/animegasan/mikwrt/main/preview/luci-app-ipinfo_luci.png"/>
+![image](https://github.com/animegasan/luci-app-ipinfo/assets/14136053/5d5879a7-716f-4e87-b2c2-ca8615cfba9d)
