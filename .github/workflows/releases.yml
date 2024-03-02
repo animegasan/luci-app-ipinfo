@@ -6,7 +6,7 @@ on:
     branches:
       - 'master'
     paths:
-      - 'luci-app-speedtest/Makefile'
+      - 'luci-app-ipinfo/Makefile'
 env:
   TZ: Asia/Jakarta
 
@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: luci-app-speedtest
+          name: luci-app-ipinfo
           tag_name: ${{steps.check_version.outputs.latest_version}}
 
 
@@ -81,28 +81,28 @@ jobs:
           echo "src-git-full packages https://github.com/openwrt/packages.git;openwrt-23.05" >> feeds.conf
           echo "src-git-full luci https://git.openwrt.org/project/luci.git;openwrt-23.05" >> feeds.conf
           echo "src-git-full routing https://git.openwrt.org/feed/routing.git;openwrt-23.05"  >> feeds.conf
-          git clone -b master https://github.com/${{ github.repository }}.git package/downloads/luci-app-speedtest
+          git clone -b master https://github.com/${{ github.repository }}.git package/downloads/luci-app-ipinfo
           ./scripts/feeds update -a
-          echo "CONFIG_PACKAGE_luci-app-speedtest=m" > .config
-          ./scripts/feeds install -d n luci-app-speedtest
+          echo "CONFIG_PACKAGE_luci-app-ipinfo=m" > .config
+          ./scripts/feeds install -d n luci-app-ipinfo
           make download -j8
       - name: Configure IPK
         run: |
           cd sdk
-          ./scripts/feeds install luci-app-speedtest
+          ./scripts/feeds install luci-app-ipinfo
           echo "CONFIG_ALL_NONSHARED=n" > .config
           echo "CONFIG_ALL_KMODS=n" >> .config
           echo "CONFIG_ALL=n" >> .config
           echo "CONFIG_AUTOREMOVE=n" >> .config
           echo "CONFIG_LUCI_LANG_zh_Hans=n" >> .config
-          echo "CONFIG_PACKAGE_luci-app-speedtest=m" >> .config
+          echo "CONFIG_PACKAGE_luci-app-ipinfo=m" >> .config
           make defconfig
       - name: Compile IPK
         id: compile
         run: |
           cd sdk
-          echo "make package/luci-app-speedtest/{clean,compile} -j$(nproc)"
-          make package/luci-app-speedtest/{clean,compile} -j$(nproc)
+          echo "make package/luci-app-ipinfo/{clean,compile} -j$(nproc)"
+          make package/luci-app-ipinfo/{clean,compile} -j$(nproc)
           mv bin/packages/x86_64/base/ ../
           rm .config .config.old
           cd ..
