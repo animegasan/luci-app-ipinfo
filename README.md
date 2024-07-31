@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>LuCI support for ifconfig.co</h1>
-  <h3>Shows public ip information in Overview LuCI with ifconfig.co</h3>
+  <h1>LuCI support for ip.guide</h1>
+  <h3>Shows public ip information in Overview LuCI with ip.guide</h3>
 </div>
 <hr/>
 <div align="center">
