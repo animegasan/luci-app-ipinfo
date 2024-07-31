@@ -17,28 +17,35 @@ return view.extend({
 		return uci.load('ipinfo').then(function() {
 			var data = uci.sections('ipinfo');
 			var jsonData = {};
-			return fs.exec('curl', ['-s', '-m', '5', '-o', '/dev/null', 'https://www.google.com']).then(function(result) {
-				if (result.code === 0) {
-					if (data.length > 0) {
-						var item = data[0];
-						jsonData.uci = {
-							enable: item.enable,
-							isp: item.isp,
-							loc: item.loc,
-							co: item.co
-						};
-					} else {
-						jsonData.uci = null;
-					};
-					return fs.exec('curl', ['-sL', 'ip.guide']).then(function(result) {
-						var data = JSON.parse(result.stdout);
-						jsonData.json = data;
-						return jsonData;
-					});
-				} else {
-					return jsonData;
+			if (data[0].enable === '0') {
+				jsonData.uci = {
+					enable: data[0].enable
 				};
-			});
+				return jsonData;
+			} else {
+				return fs.exec('curl', ['-s', '-m', '5', '-o', '/dev/null', 'https://www.google.com']).then(function(result) {
+					if (result.code === 0) {
+						if (data.length > 0) {
+							var item = data[0];
+							jsonData.uci = {
+								enable: item.enable,
+								isp: item.isp,
+								loc: item.loc,
+								co: item.co
+							};
+						} else {
+							jsonData.uci = null;
+						};
+						return fs.exec('curl', ['-sL', 'ip.guide']).then(function(result) {
+							var data = JSON.parse(result.stdout);
+							jsonData.json = data;
+							return jsonData;
+						});
+					} else {
+						return jsonData;
+					};
+				});
+			};
 		});
 	},
 	render: function (data) {
