@@ -1,7 +1,7 @@
 #!/bin/sh
 
 apk_name="luci-app-ipinfo"
-version="2.3"
+version="2.4"
 
 echo "Updating packages"
 if ! opkg update; then
